@@ -13,10 +13,8 @@ settings={
 }
 
 class IndexHandler(tornado.web.RequestHandler):
-    def set_default_headers(self):
-        self.set_header("Content-Type", "application/json; charset=UTF-8")  
     def get(self):
-        # db=TinyDB("template/words.json")
+        db=TinyDB("template/words.json")
         # file_path=os.path.join(os.path.dirname(__file__),'template','test.xlsx')
         # wb=openpyxl.load_workbook(file_path,data_only=True)
         # ws=wb.worksheets[0]
@@ -29,7 +27,7 @@ class IndexHandler(tornado.web.RequestHandler):
         #         'music':f'https://fanyi.baidu.com/gettts?lan=en&text={ws.cell(i,2).value}&spd=3&source=web',
         #         })
         
-        self.render('index.html')
+        self.render('index.html',data=db.all())
 
 def make_app():
     return tornado.web.Application([
